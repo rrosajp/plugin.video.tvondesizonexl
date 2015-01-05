@@ -844,10 +844,8 @@ def __prepareVideoLink__(video_link):
         
         if re.search('dm(\d*).php', video_url, flags=re.I) or (re.search('(desiserials|tellyserials|serialreview|[a-z]*).tv/', video_url, flags=re.I) and not video_id.isdigit() and re.search('dailymotion', video_source, flags=re.I)):
             new_video_url = 'http://www.dailymotion.com/video/' + video_id + '_'
-        elif re.search('(pw.php)', video_url, flags=re.I):
-            new_video_url = 'http://config.playwire.com/videos/v2/' + video_id + '/player.json'
-        elif re.search('(flash.php|fp.php|wire.php)', video_url, flags=re.I) or (re.search('(desiserials|serialreview|tellyserials|[a-z]*).tv/', video_url, flags=re.I) and video_id.isdigit() and re.search('flash', video_source, flags=re.I)):
-            new_video_url = 'http://config.playwire.com/videos/v2/' + video_id + '/player.json'
+        elif re.search('(flash.php|fp.php|wire.php|pw.php)', video_url, flags=re.I) or ((re.search('(desiserials|serialreview|tellyserials|[a-z]*).tv/', video_url, flags=re.I) or re.search('bigbangreviews.com/|tvnewz.net/|reviewxpress.net/', video_url, flags=re.I)) and video_id.isdigit() and re.search('flash', video_source, flags=re.I)):
+            new_video_url = 'http://config.playwire.com/videos/v2/' + video_id + '/player.json'            
         elif re.search('(youtube|u|yt)(\d*).php', video_url, flags=re.I):
             new_video_url = 'http://www.youtube.com/watch?v=' + video_id + '&'
         elif re.search('mega.co.nz', video_url, flags=re.I):
@@ -924,7 +922,7 @@ def __findPlayNowStream__(new_items):
                 if item.getProperty('isHD') == 'true' and selectedIndex is not None:
                     hdSelected = True
                     
-                if source_name == CloudEC.VIDEO_HOST_NAME and backupSource is None:
+                if ((source_name == CloudEC.VIDEO_HOST_NAME or source_name == Playwire.VIDEO_HOSTING_NAME) and backupSource is None):
                     logging.getLogger().debug("Added to backup plan: %s" % source_name)
                     backupSource = item
                     backupSourceName = source_name
