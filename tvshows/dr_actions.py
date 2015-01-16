@@ -21,7 +21,7 @@ along with XOZE.  If not, see <http://www.gnu.org/licenses/>.
 
 from xoze.context import AddonContext, SnapVideo
 from xoze.snapvideo import Dailymotion, Playwire, YouTube, Tune_pk, VideoWeed, \
-    Nowvideo, Novamov, CloudEC
+    Nowvideo, Novamov, CloudEC, VideoHut
 from xoze.utils import file, http, jsonfile
 from xoze.utils.cache import CacheManager
 from xoze.utils.http import HttpClient
@@ -569,6 +569,7 @@ def __retrieveTVShowEpisodes__(threads, tv_show_name, channel_type, channel_name
         titleInfo = titleInfo.replace('Video Watch online', '')
         titleInfo = titleInfo.replace('Watch Online', '')
         titleInfo = titleInfo.replace('Watch online', '')
+        titleInfo = titleInfo.replace('Watch', '')      
         titleInfo = titleInfo.replace('Video', '')
         titleInfo = titleInfo.replace('video', '')
         titleInfo = titleInfo.replace('-', '')
@@ -765,6 +766,11 @@ def _retrieve_video_links_(req_attrib, modelMap):
     
     for e in soup.findAll('br'):
         e.extract()
+    
+    # Removing the child font within font to handle where the font gets changed at the end for HQ    
+    for e in soup.find('font').findAll('font'):
+        e.extract()    
+    
     logging.getLogger().debug(soup)
     if soup.has_key('div'):
         soup = soup.findChild('div', recursive=False)
@@ -857,7 +863,7 @@ def __prepareVideoLink__(video_link):
         
         video_id = re.compile('(id|url|v|si)=(.+?)/').findall(video_url + '/')[0][1]                
         
-        if re.search('dm(\d*).php', video_url, flags=re.I) or ((re.search('(desiserials|serialreview|serialnewz|tellyserials|[a-z]*).tv/', video_url, flags=re.I) or re.search('bigbangreviews.com/|tvnewz.net/|reviewxpress.net/', video_url, flags=re.I)) and not video_id.isdigit() and re.search('dailymotion', video_source, flags=re.I)):
+        if re.search('dm(\d*).php', video_url, flags=re.I) or ((re.search('(desiserials|serialreview|tellyserials|[a-z]*).tv/', video_url, flags=re.I) or re.search('bigbangreviews.com/|tvnewz.net/|reviewxpress.net/', video_url, flags=re.I)) and not video_id.isdigit() and re.search('dailymotion', video_source, flags=re.I)):
             new_video_url = 'http://www.dailymotion.com/video/' + video_id + '_'                        
         elif re.search('(flash.php|fp.php|wire.php|pw.php)', video_url, flags=re.I) or ((re.search('(desiserials|serialreview|tellyserials|[a-z]*).tv/', video_url, flags=re.I) or re.search('bigbangreviews.com/|tvnewz.net/|reviewxpress.net/', video_url, flags=re.I)) and video_id.isdigit() and re.search('flash', video_source, flags=re.I)):
             new_video_url = 'http://config.playwire.com/videos/v2/' + video_id + '/player.json'            
@@ -869,6 +875,8 @@ def __prepareVideoLink__(video_link):
             new_video_url = 'http://www.putlocker.com/file/' + video_id
         elif re.search('cloud.php', video_url, flags=re.I):
             new_video_url = 'http://www.cloudy.ec/embed.php?id=' + video_id
+        elif re.search('videohut.php', video_url, flags=re.I) or ((re.search('(desiserials|serialreview|tellyserials|[a-z]*).tv/', video_url, flags=re.I) or re.search('bigbangreviews.com/|tvnewz.net/|reviewxpress.net/', video_url, flags=re.I)) and not video_id.isdigit() and re.search('video hut', video_source, flags=re.I)):
+            new_video_url = 'http://www.videohut.to/embed.php?id=' + video_id                        
         elif re.search('(weed.php|vw.php)', video_url, flags=re.I):
             new_video_url = 'http://www.videoweed.es/file/' + video_id
         elif re.search('(sockshare.com|sock.com)', video_url, flags=re.I):
@@ -885,7 +893,7 @@ def __prepareVideoLink__(video_link):
             new_video_url = 'nowvideo.ch/embed.php?v=' + video_id + '&'
         elif re.search('nm.php', video_url, flags=re.I):
             new_video_url = 'novamov.com/video/' + video_id + '&'
-        elif re.search('tune.php', video_url, flags=re.I):
+        elif re.search('tune.php', video_url, flags=re.I) or ((re.search('(desiserials|serialreview|tellyserials|[a-z]*).tv/', video_url, flags=re.I) or re.search('bigbangreviews.com/|tvnewz.net/|reviewxpress.net/', video_url, flags=re.I)) and video_id.isdigit() and re.search('tune.pk', video_source, flags=re.I)):
             new_video_url = 'tune.pk/play/' + video_id + '&'
         elif re.search('vshare.php', video_url, flags=re.I):
             new_video_url = 'http://vshare.io/d/' + video_id + '&'
