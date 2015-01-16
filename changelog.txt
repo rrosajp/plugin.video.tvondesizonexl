@@ -1,5 +1,5 @@
 [B]Version 2.5.8[/B]
--  Fixed dailymotion links for pakistani shows
+-  Fixed dailymotion links for Pakistani channels. Added new VideoHut source
 
 [B]Version 2.5.7[/B]
 -  Added Discovery Kids, Zee Anmol
