@@ -116,6 +116,10 @@
 	<snapper function="retrieveVideoInfo" enabled="true" module="xoze.snapvideo.CloudEC">
 		<video-id regex="cloudy.ec/embed.php\?id=(.+?)&amp;"/>
 	</snapper>
+    
+	<snapper function="retrieveVideoInfo" enabled="true" module="xoze.snapvideo.VideoHut">
+		<video-id regex="videohut.to/embed.php\?id=(.+?)&amp;"/>
+	</snapper>    
 
 	<snapper module="xoze.snapvideo.VidBux" function="retrieveVideoInfo"
 		enabled="true" desc="www.vidbux.com video hosting website">
