@@ -16,7 +16,7 @@ VIDEO_HOSTING_NAME = 'PLAYWIRE'
 
 def getVideoHost():
     video_host = VideoHost()
-    video_host.set_icon('http://www.playwire.com/images/logo.png')
+    video_host.set_icon('http://cdn.intergi.com/playwire/playwire-logo-subhed.png')
     video_host.set_name(VIDEO_HOSTING_NAME)
     return video_host
 
