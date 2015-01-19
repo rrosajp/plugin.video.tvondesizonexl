@@ -30,12 +30,11 @@ def retrieveVideoInfo(video_id):
         image = re.compile("preview_img = '(.+?)';").findall(html)
         if image is not None and len(image) == 1:
             video_info.set_thumb_image(str(image[0]))
-        html = html.replace('\n\r', '').replace('\r', '').replace('\n', '')
-        sources = re.compile("{(.+?)}").findall(re.compile("sources:(.+?)]").findall(html)[0])
+        html = html.replace('\n\r', '').replace('\r', '').replace('\n', '').replace('"','').replace('\\/','/')
+        sources = re.compile("{(.+?)}").findall(re.compile("sources = (.+?)]").findall(html)[0])
         for source in sources:
-            video_link = str(re.compile('file[: ]*"(.+?)"').findall(source)[0])
-            logging.getLogger().debug(video_link)
-            label_text = re.compile('label[: ]*"(.+?)"').findall(source)
+            video_link = str(re.compile("file:(.+?).mp4").findall(source)[0]) + '.mp4'
+	    label_text = str(re.compile("label:(.+?)p").findall(source)[0]) + 'p'
             if label_text is not None and len(label_text) == 1:
                 label = str(label_text[0])
                 logging.getLogger().debug(label)
