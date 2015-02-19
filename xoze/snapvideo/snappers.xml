@@ -129,6 +129,16 @@
 		<video-id regex="vidbux.com/(.+?)&amp;" />
 	</snapper>
 
+	<snapper module="xoze.snapvideo.Vidto" function="retrieveVideoInfo"
+		enabled="true" desc="vidto.me video hosting website">
+		<video-id regex="vidto.me/(.+?).html" />
+	</snapper>
+
+	<snapper module="xoze.snapvideo.VideoTanker" function="retrieveVideoInfo"
+		enabled="true" desc="videotanker.co video hosting website">
+                <video-id regex="videotanker.co/player/embed_player.php\?vid=(.+?)&amp;" />
+	</snapper>
+
 	<snapper module="xoze.snapvideo.VidXden" function="retrieveVideoInfo"
 		enabled="true" desc="www.vidxden.com video hosting website">
 		<video-id regex="vidxden.com/embed-(.+?)-" />
@@ -243,11 +253,6 @@
 		enabled="true" desc="vshare.io video hosting website">
 		<video-id regex="vshare.io/d/(.+?)&amp;" />
 	</snapper>
-	
-	<snapper module="xoze.snapvideo.Vidto" function="retrieveVideoInfo"
-		enabled="true" desc="vidto.me video hosting website">
-		<video-id regex="vidto.me/(.+?).html" />
-	</snapper>
 
 	<snapper function="retrieveVideoInfo" enabled="true"
 		module="xoze.snapvideo.GoogleDocs" desc="video url that is downloaded from google docs server">
@@ -296,11 +301,10 @@
     	<video-id regex="playcineflix.com/(.+?).mp4"/>
     </snapper>
     
-	<!-- The following snapper should be at the end of all srcappers -->
-	<snapper module="xoze.snapvideo.UrlResolverDelegator" function="retrieveVideoInfo"
-		enabled="true"
-		desc="A delegator to retireve streamUrl using t0mm0 urlresolver module">
-		<video-id regex="*" />
-	</snapper>
+    <!-- The following snapper should be at the end of all srcappers -->
+    <snapper module="xoze.snapvideo.UrlResolverDelegator" function="retrieveVideoInfo" 
+             enabled="true" desc="A delegator to retireve streamUrl using t0mm0 urlresolver module">
+        <video-id regex="*" />
+    </snapper>
 
 </snappers>
