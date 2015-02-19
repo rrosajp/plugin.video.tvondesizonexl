@@ -4,6 +4,7 @@ Created on Nov 21, 2012
 @author: ajju
 '''
 from xoze.snapvideo import VideoHost, Video, STREAM_QUAL_SD
+import logging
 try:
     import urlresolver  # @UnresolvedImport
 except:
@@ -15,7 +16,7 @@ def isUrlResolvable(videoUrl):
 def getVideoHost():
     video_host = VideoHost()
     video_host.set_icon('')
-    video_host.set_name('UrlResolver by t0mm0')
+    video_host.set_name('Finding Link using urlresolver')
     return video_host
 
 def retrieveVideoInfo(videoUrl):
