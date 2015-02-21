@@ -1,5 +1,8 @@
+[B]Version 2.5.16[/B]
+-  Few Fixes
+
 [B]Version 2.5.15[/B]
--  Added Zing TV, Zindagi TV, NDTV 24X7
+-  Added Zing TV, Zindagi TV
 
 [B]Version 2.5.14[/B]
 -  Added IBN7, India TV
