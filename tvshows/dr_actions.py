@@ -41,19 +41,22 @@ DIRECT_CHANNELS = {"Awards & Concerts":{"iconimage":"Awards.jpg",
                    "Latest & Exclusive Movies":{"iconimage":"Movies.jpeg",
                    "channelType": "IND",
                    "tvshow_episodes_url": "/forums/20-Latest-Exclusive-Movie-HQ"}}
-				 
-LIVE_CHANNELS = {"9XM":{"iconimage":"http://static.aka.yupp.yuppcdn.net/yupptv/sony1/images/9xm_roku.jpg",
+ 
+LIVE_CHANNELS = {"9XM":{"iconimage":"http://www.lyngsat-logo.com/logo/tv/num/9x_music.png",
                         "channelType": "IND",
                         "channelUrl": "http://hlshinextra-lh.akamaihd.net/i/ams4_9xm@124574/master.m3u8|User-Agent=Apache-HttpClient/UNAVAILABLE+(java+1.4)"},
-                 "MTunes":{"iconimage":"http://static.aka.yupp.yuppcdn.net/yupptv/sony1/images/mtunes_roku.jpg",
+                 "MTunes":{"iconimage":"http://www.lyngsat-logo.com/logo/tv/mm/m_tunes_hd.png",
                            "channelType": "IND",
                            "channelUrl": "http://hlshinextra-lh.akamaihd.net/i/ams4_mtunes@124572/master.m3u8|User-Agent=Apache-HttpClient/UNAVAILABLE+(java+1.4)"},
-                 "9X Jalwa":{"iconimage":"http://static.aka.yupp.yuppcdn.net/yupptv/sony1/images/9x_jalwa_new_roku.jpg",
+                 "9X Jalwa":{"iconimage":"http://www.lyngsat-logo.com/logo/tv/num/9x_jalwa.png",
                              "channelType": "IND",
                              "channelUrl": "http://hlsotherextra-lh.akamaihd.net/i/ams26_9xjalwa@127502/master.m3u8|User-Agent=Apache-HttpClient/UNAVAILABLE+(java+1.4)"},
-				 "9x Tashan":{"iconimage":"http://static.aka.yupp.yuppcdn.net/yupptv/sony1/images/9xtashan_roku.jpg",
+				 "9x Tashan":{"iconimage":"http://www.lyngsat-logo.com/logo/tv/num/9x_tashan.png",
                               "channelType": "IND",
                               "channelUrl": "http://hlsotherent-lh.akamaihd.net/i/ams23_9xtashan@127489/master.m3u8|User-Agent=Apache-HttpClient/UNAVAILABLE+(java+1.4)"},
+                 "NDTV 24X7":{"iconimage":"http://www.lyngsat-logo.com/logo/tv/nn/ndtv_24x7.png",
+                              "channelType": "IND",
+                              "channelUrl": "http://hlsengnews-lh.akamaihd.net/i/ams3_ndtv247@124570/master.m3u8|User-Agent=Apache-HttpClient/UNAVAILABLE+(java+1.4)"},
                  "IBN7": {"iconimage":"http://www.lyngsat-logo.com/logo/tv/ii/ibn7.png",
                           "channelType": "IND",
                           "channelUrl": "http://ibn7_hls-lh.akamaihd.net/i/ibn7_hls_n_1@174951/index_3_av-b.m3u8?sd=10&play-only=backup&rebase=on"},
@@ -244,6 +247,16 @@ def refresh_cache(req_attrib, modelMap):
                   {"iconimage":"http://www.lyngsat-logo.com/logo/tv/ee/epic_in.png",
                    "channelType": "IND",
                    "running_tvshows_url": "/forumdisplay.php?f=2929",
+                   "finished_tvshows_url": None},
+                    "Zindagi TV":
+                  {"iconimage":"http://www.lyngsat-logo.com/logo/tv/zz/zee_zindagi_in.png",
+                   "channelType": "IND",
+                   "running_tvshows_url": "/forumdisplay.php?f=2679",
+                   "finished_tvshows_url": None},
+                    "Zing TV":
+                  {"iconimage":"http://www.lyngsat-logo.com/logo/tv/zz/zee_zing_asia.png",
+                   "channelType": "IND",
+                   "running_tvshows_url": "/forumdisplay.php?f=2624",
                    "finished_tvshows_url": None}
                 }
             }
@@ -278,7 +291,7 @@ def load_channels(req_attrib, modelMap):
     tv_channel_items = []
     
     display_channel_type = int(AddonContext().get_addon().getSetting('drChannelType'))
-	
+
     for channel_name in LIVE_CHANNELS:
         channel_obj = LIVE_CHANNELS[channel_name]
         if((display_channel_type == 1 and channel_obj['channelType'] == CHANNEL_TYPE_IND)  or (display_channel_type == 0)):
