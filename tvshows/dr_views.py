@@ -81,6 +81,10 @@ def show_channels_view(modelMap, window):
     window.getControl(102).reset()
     window.getControl(102).addItems(modelMap['tv_channel_items'])
     window.setFocusId(102)
+    if len(modelMap['live_tv_channel_items']) > 0:
+        window.getControl(108).reset()
+        window.getControl(108).addItems(modelMap['live_tv_channel_items'])
+        window.setFocusId(108)
 
 def show_tv_shows_view(modelMap, window):
     window.getControl(200).setVisible(False)

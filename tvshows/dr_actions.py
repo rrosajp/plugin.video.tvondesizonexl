@@ -289,17 +289,28 @@ def load_channels(req_attrib, modelMap):
     tv_channels = _read_tv_channels_cache_(modelMap['cache_filepath'])['channels']
     
     tv_channel_items = []
+    live_tv_channel_items = []
     
     display_channel_type = int(AddonContext().get_addon().getSetting('drChannelType'))
-
-    for channel_name in LIVE_CHANNELS:
-        channel_obj = LIVE_CHANNELS[channel_name]
+    
+    live_channels_all = {}
+    live_channels_all.update(LIVE_CHANNELS)
+    
+    live_filepath = file.resolve_file_path(AddonContext().get_addon_data_path(), extraDirPath='data', filename='Live.json', makeDirs=True)
+    live_file_channels = _read_live_tv_channels_cache_(live_filepath)
+    if live_file_channels is not None:
+        live_channels_all.update(live_file_channels)
+    
+    channel_names = live_channels_all.keys()
+    channel_names.sort()
+    for channel_name in channel_names:
+        channel_obj = live_channels_all[channel_name]
         if((display_channel_type == 1 and channel_obj['channelType'] == CHANNEL_TYPE_IND)  or (display_channel_type == 0)):
             item = xbmcgui.ListItem(label=channel_name, iconImage=channel_obj['iconimage'], thumbnailImage=channel_obj['iconimage'])
             item.setProperty('channel-name', channel_name)
             item.setProperty('live-link', 'true')
             item.setProperty('direct-link', 'false')
-            tv_channel_items.append(item)
+            live_tv_channel_items.append(item)
     
     for channel_name in DIRECT_CHANNELS:
         channel_obj = DIRECT_CHANNELS[channel_name]
@@ -310,7 +321,9 @@ def load_channels(req_attrib, modelMap):
             item.setProperty('live-link', 'false')
             tv_channel_items.append(item)
     
-    for channel_name in tv_channels:
+    channel_names = tv_channels.keys()
+    channel_names.sort()
+    for channel_name in channel_names:
         channel_obj = tv_channels[channel_name]
         if ((display_channel_type == 1 and channel_obj['channelType'] == CHANNEL_TYPE_IND) 
             or (display_channel_type == 2 and channel_obj['channelType'] == CHANNEL_TYPE_PAK) 
@@ -323,6 +336,7 @@ def load_channels(req_attrib, modelMap):
             tv_channel_items.append(item)
      
     modelMap['tv_channel_items'] = tv_channel_items
+    modelMap['live_tv_channel_items'] = live_tv_channel_items
     
 
 def load_favorite_tv_shows(req_attrib, modelMap):
@@ -333,7 +347,9 @@ def load_favorite_tv_shows(req_attrib, modelMap):
     if favorite_tv_shows is None:
         return
     favorite_tv_shows_items = []
-    for tv_show_name in favorite_tv_shows:
+    tv_show_names = favorite_tv_shows.keys()
+    tv_show_names.sort()
+    for tv_show_name in tv_show_names:
         favorite_tv_show = favorite_tv_shows[tv_show_name]
         item = xbmcgui.ListItem(label=tv_show_name, iconImage=favorite_tv_show['tv-show-thumb'], thumbnailImage=favorite_tv_show['tv-show-thumb'])
         item.setProperty('channel-type', favorite_tv_show['channel-type'])
@@ -407,12 +423,21 @@ def re_me(data, re_patten):
     
 def watch_live(req_attrib, modelMap):
     channel_name = req_attrib['channel-name']
-    tv_channel = LIVE_CHANNELS[channel_name]
+    
+    live_filepath = file.resolve_file_path(AddonContext().get_addon_data_path(), extraDirPath='data', filename='Live.json', makeDirs=True)
+    live_file_channels = _read_live_tv_channels_cache_(live_filepath)
+    tv_channel = None
+    if LIVE_CHANNELS.has_key(channel_name):
+        tv_channel = LIVE_CHANNELS[channel_name]
+    if live_file_channels is not None and live_file_channels.has_key(channel_name):
+        tv_channel = live_file_channels[channel_name]
+        
     item = xbmcgui.ListItem(label=channel_name, iconImage=tv_channel['iconimage'], thumbnailImage=tv_channel['iconimage'])
     item.setProperty('streamLink', tv_channel['channelUrl'])
     modelMap['live_item'] = item
     
 def _prepare_tv_show_items_(tv_shows, channel_type, channel_name, selected_tv_show_name, tv_show_items, is_finished_shows, modelMap, index):
+    tv_shows.sort()
     for tv_show in tv_shows:
         name = tv_show['name']
         if is_finished_shows:
@@ -705,6 +730,12 @@ def _read_tv_channels_cache_(filepath):
         CacheManager().put('tv_data', tv_data)
     return tv_data
 
+def _read_live_tv_channels_cache_(filepath):
+    live_tv_data = CacheManager().get('live_tv_data')
+    if live_tv_data is None:
+        live_tv_data = jsonfile.read_file(filepath)
+        CacheManager().put('live_tv_data', live_tv_data)
+    return live_tv_data
 
 def _read_favorite_tv_shows_cache_(filepath):
     favorites = CacheManager().get('tv_favorites')

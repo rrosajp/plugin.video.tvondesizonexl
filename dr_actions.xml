@@ -107,6 +107,11 @@
 		<event function="handle_channel_selected" module="tvshows.dr_views" action-id="dr-displayShowsList" control-id="102" intent="ACTION_ENTER" />
 		<event function="handle_channel_selected" module="tvshows.dr_views" action-id="dr-displayShowsList" control-id="102" intent="ACTION_TOUCH_TAP" />
 		
+		<event function="handle_channel_selected" module="tvshows.dr_views" action-id="dr-displayShowsList" control-id="108" intent="ACTION_MOUSE_LEFT_CLICK" />
+		<event function="handle_channel_selected" module="tvshows.dr_views" action-id="dr-displayShowsList" control-id="108" intent="ACTION_SELECT_ITEM" />
+		<event function="handle_channel_selected" module="tvshows.dr_views" action-id="dr-displayShowsList" control-id="108" intent="ACTION_ENTER" />
+		<event function="handle_channel_selected" module="tvshows.dr_views" action-id="dr-displayShowsList" control-id="108" intent="ACTION_TOUCH_TAP" />
+		
 		<event function="handle_favorite_tv_show_selected" module="tvshows.dr_views" action-id="dr-displayFavoriteShowEpisodesList" control-id="105" intent="ACTION_MOUSE_LEFT_CLICK" />
 		<event function="handle_favorite_tv_show_selected" module="tvshows.dr_views" action-id="dr-displayFavoriteShowEpisodesList" control-id="105" intent="ACTION_SELECT_ITEM" />
 		<event function="handle_favorite_tv_show_selected" module="tvshows.dr_views" action-id="dr-displayFavoriteShowEpisodesList" control-id="105" intent="ACTION_ENTER" />
@@ -161,6 +166,11 @@
 		<event function="handle_channel_selected" module="tvshows.dr_views" action-id="dr-displayShowsList" control-id="102" intent="ACTION_SELECT_ITEM" />
 		<event function="handle_channel_selected" module="tvshows.dr_views" action-id="dr-displayShowsList" control-id="102" intent="ACTION_ENTER" />
 		<event function="handle_channel_selected" module="tvshows.dr_views" action-id="dr-displayShowsList" control-id="102" intent="ACTION_TOUCH_TAP" />
+		
+		<event function="handle_channel_selected" module="tvshows.dr_views" action-id="dr-displayShowsList" control-id="108" intent="ACTION_MOUSE_LEFT_CLICK" />
+		<event function="handle_channel_selected" module="tvshows.dr_views" action-id="dr-displayShowsList" control-id="108" intent="ACTION_SELECT_ITEM" />
+		<event function="handle_channel_selected" module="tvshows.dr_views" action-id="dr-displayShowsList" control-id="108" intent="ACTION_ENTER" />
+		<event function="handle_channel_selected" module="tvshows.dr_views" action-id="dr-displayShowsList" control-id="108" intent="ACTION_TOUCH_TAP" />
 		
 		<event function="handle_favorite_tv_show_selected" module="tvshows.dr_views" action-id="dr-displayFavoriteShowEpisodesList" control-id="105" intent="ACTION_MOUSE_LEFT_CLICK" />
 		<event function="handle_favorite_tv_show_selected" module="tvshows.dr_views" action-id="dr-displayFavoriteShowEpisodesList" control-id="105" intent="ACTION_SELECT_ITEM" />
