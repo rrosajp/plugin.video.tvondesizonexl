@@ -844,41 +844,42 @@ def _retrieve_video_links_(req_attrib, modelMap):
                     video_playlist_items = []
                 ignoreAllLinks = False
         elif not ignoreAllLinks and child.name == 'a' and not re.search('multi', str(child['href']), re.IGNORECASE):
-            video_part_index = video_part_index + 1
-            video_link = {}
-            video_link['videoTitle'] = 'Source #' + str(video_source_id) + ' | ' + 'Part #' + str(video_part_index) + ' | ' + child.getText()
-            video_link['videoLink'] = str(child['href'])
-            video_link['videoSource'] = videoSource
-            try:
+            if (str(child['href']) != 'https://www.facebook.com/iamdesirulez'):       
+                video_part_index = video_part_index + 1
+                video_link = {}
+                video_link['videoTitle'] = 'Source #' + str(video_source_id) + ' | ' + 'Part #' + str(video_part_index) + ' | ' + child.getText()
+                video_link['videoLink'] = str(child['href'])
+                video_link['videoSource'] = videoSource
                 try:
-                    __prepareVideoLink__(video_link)
-                except Exception, e:
-                    logging.getLogger().error(e)
-                    video_hosting_info = SnapVideo().findVideoHostingInfo(video_link['videoLink'])
-                    if video_hosting_info is None or video_hosting_info.get_name() == 'UrlResolver by t0mm0':
-                        raise
-                    video_link['videoSourceImg'] = video_hosting_info.get_icon()
-                    video_link['videoSourceName'] = video_hosting_info.get_name()
-                video_playlist_items.append(video_link)
-                video_source_img = video_link['videoSourceImg']
-                video_source_name = video_link['videoSourceName']
+                    try:
+                        __prepareVideoLink__(video_link)
+                    except Exception, e:
+                        logging.getLogger().error(e)
+                        video_hosting_info = SnapVideo().findVideoHostingInfo(video_link['videoLink'])
+                        if video_hosting_info is None or video_hosting_info.get_name() == 'UrlResolver by t0mm0':
+                            raise
+                        video_link['videoSourceImg'] = video_hosting_info.get_icon()
+                        video_link['videoSourceName'] = video_hosting_info.get_name()
+                    video_playlist_items.append(video_link)
+                    video_source_img = video_link['videoSourceImg']
+                    video_source_name = video_link['videoSourceName']
                 
-                item = xbmcgui.ListItem(label='Source #' + str(video_source_id) + ' | ' + 'Part #' + str(video_part_index) , iconImage=video_source_img, thumbnailImage=video_source_img)
-                item.setProperty('videoLink', video_link['videoLink'])
-                item.setProperty('videoTitle', video_link['videoTitle'])
-                item.setProperty('videoSourceName', video_source_name)
-                item.setProperty('isContinuousPlayItem', 'false')
-                list_items.append(item)
+                    item = xbmcgui.ListItem(label='Source #' + str(video_source_id) + ' | ' + 'Part #' + str(video_part_index) , iconImage=video_source_img, thumbnailImage=video_source_img)
+                    item.setProperty('videoLink', video_link['videoLink'])
+                    item.setProperty('videoTitle', video_link['videoTitle'])
+                    item.setProperty('videoSourceName', video_source_name)
+                    item.setProperty('isContinuousPlayItem', 'false')
+                    list_items.append(item)
                 
-                prevAFont = child.findChild('font')
-            except:
-                logging.getLogger().error('Unable to recognize a source = ' + str(video_link['videoLink']))
-                video_source_img = None
-                video_source_name = None
-                video_part_index = 0
-                video_playlist_items = []
-                ignoreAllLinks = True
-                prevAFont = None
+                    prevAFont = child.findChild('font')
+                except:
+                    logging.getLogger().error('Unable to recognize a source = ' + str(video_link['videoLink']))
+                    video_source_img = None
+                    video_source_name = None
+                    video_part_index = 0
+                    video_playlist_items = []
+                    ignoreAllLinks = True
+                    prevAFont = None
         prevChild = child.name
     if len(video_playlist_items) > 0:
         list_items.append(__preparePlayListItem__(video_source_id, video_source_img, video_source_name, video_playlist_items, modelMap, isHD))
@@ -907,9 +908,9 @@ def __prepareVideoLink__(video_link):
         
         video_id = re.compile('(id|url|v|si)=(.+?)/').findall(video_url + '/')[0][1]                
         
-        if re.search('dm(\d*).php', video_url, flags=re.I) or ((re.search('([a-z]*).tv/', video_url, flags=re.I) or re.search('([a-z]*).net/', video_url, flags=re.I) or re.search('([a-z]*).com/', video_url, flags=re.I)) and not video_id.isdigit() and re.search('dailymotion', video_source, flags=re.I)):
+        if re.search('dm(\d*).php', video_url, flags=re.I) or ((re.search('([a-z]*).tv/', video_url, flags=re.I) or re.search('([a-z]*).net/', video_url, flags=re.I) or re.search('([a-z]*).com/', video_url, flags=re.I) or re.search('([a-z]*).me/', video_url, flags=re.I)) and not video_id.isdigit() and re.search('dailymotion', video_source, flags=re.I)):
             new_video_url = 'http://www.dailymotion.com/video/' + video_id + '_'                        
-        elif re.search('(flash.php|fp.php|wire.php|pw.php)', video_url, flags=re.I) or ((re.search('([a-z]*).tv/', video_url, flags=re.I) or re.search('([a-z]*).net/', video_url, flags=re.I) or re.search('([a-z]*).com/', video_url, flags=re.I)) and video_id.isdigit() and re.search('flash', video_source, flags=re.I)):
+        elif re.search('(flash.php|fp.php|wire.php|pw.php)', video_url, flags=re.I) or ((re.search('([a-z]*).tv/', video_url, flags=re.I) or re.search('([a-z]*).net/', video_url, flags=re.I) or re.search('([a-z]*).com/', video_url, flags=re.I) or re.search('([a-z]*).me/', video_url, flags=re.I)) and video_id.isdigit() and re.search('flash', video_source, flags=re.I)):
             new_video_url = 'http://config.playwire.com/videos/v2/' + video_id + '/player.json'            
         elif re.search('(youtube|u|yt)(\d*).php', video_url, flags=re.I):
             new_video_url = 'http://www.youtube.com/watch?v=' + video_id + '&'
@@ -919,7 +920,7 @@ def __prepareVideoLink__(video_link):
             new_video_url = 'http://www.putlocker.com/file/' + video_id
         elif re.search('cloud.php', video_url, flags=re.I):
             new_video_url = 'http://www.cloudy.ec/embed.php?id=' + video_id
-        elif re.search('videohut.php', video_url, flags=re.I) or ((re.search('([a-z]*).tv/', video_url, flags=re.I) or re.search('([a-z]*).net/', video_url, flags=re.I) or re.search('([a-z]*).com/', video_url, flags=re.I)) and not video_id.isdigit() and re.search('video hut', video_source, flags=re.I)):
+        elif re.search('videohut.php', video_url, flags=re.I) or ((re.search('([a-z]*).tv/', video_url, flags=re.I) or re.search('([a-z]*).net/', video_url, flags=re.I) or re.search('([a-z]*).com/', video_url, flags=re.I) or re.search('([a-z]*).me/', video_url, flags=re.I)) and not video_id.isdigit() and re.search('video hut', video_source, flags=re.I)):
             new_video_url = 'http://www.videohut.to/embed.php?id=' + video_id                        
         elif re.search('(weed.php|vw.php)', video_url, flags=re.I):
             new_video_url = 'http://www.videoweed.es/file/' + video_id
@@ -937,13 +938,13 @@ def __prepareVideoLink__(video_link):
             new_video_url = 'nowvideo.ch/embed.php?v=' + video_id + '&'
         elif re.search('nm.php', video_url, flags=re.I):
             new_video_url = 'novamov.com/video/' + video_id + '&'
-        elif re.search('tune.php', video_url, flags=re.I) or ((re.search('([a-z]*).tv/', video_url, flags=re.I) or re.search('([a-z]*).net/', video_url, flags=re.I) or re.search('([a-z]*).com/', video_url, flags=re.I)) and video_id.isdigit() and re.search('tune.pk', video_source, flags=re.I)):
+        elif re.search('tune.php', video_url, flags=re.I) or ((re.search('([a-z]*).tv/', video_url, flags=re.I) or re.search('([a-z]*).net/', video_url, flags=re.I) or re.search('([a-z]*).com/', video_url, flags=re.I) or re.search('([a-z]*).me/', video_url, flags=re.I)) and video_id.isdigit() and re.search('tune.pk', video_source, flags=re.I)):
             new_video_url = 'tune.pk/play/' + video_id + '&'
         elif re.search('vshare.php', video_url, flags=re.I):
             new_video_url = 'http://vshare.io/d/' + video_id + '&'
         elif re.search('vidto.php', video_url, flags=re.I):
             new_video_url = 'http://vidto.me/' + video_id + '.html'
-        elif re.search('videotanker.php', video_url, flags=re.I) or ((re.search('([a-z]*).tv/', video_url, flags=re.I) or re.search('([a-z]*).net/', video_url, flags=re.I) or re.search('([a-z]*).com/', video_url, flags=re.I)) and video_id.isdigit() and re.search('video tanker', video_source, flags=re.I)):
+        elif re.search('videotanker.php', video_url, flags=re.I) or ((re.search('([a-z]*).tv/', video_url, flags=re.I) or re.search('([a-z]*).net/', video_url, flags=re.I) or re.search('([a-z]*).com/', video_url, flags=re.I) or re.search('([a-z]*).me/', video_url, flags=re.I)) and video_id.isdigit() and re.search('video tanker', video_source, flags=re.I)):
             new_video_url = 'http://videotanker.co/player/embed_player.php?vid=' + video_id + '&'
 
     
