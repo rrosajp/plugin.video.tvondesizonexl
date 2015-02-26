@@ -1,3 +1,6 @@
+[B]Version 2.6.1[/B]
+- Fixed few sources
+
 [B]Version 2.6.0[/B]
 -  New Live TV section
 
