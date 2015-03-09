@@ -65,7 +65,7 @@ LIVE_CHANNELS = {"9XM":{"iconimage":"http://www.lyngsat-logo.com/logo/tv/num/9x_
                               "channelUrl": "http://indiatvnews-lh.akamaihd.net/i/ITV_1@199237/master.m3u8"},
                  "Aajtak": {"iconimage":"http://www.lyngsat-logo.com/logo/tv/aa/aaj_tak.png",
                               "channelType": "IND",
-                              "channelUrl": "plugin://plugin.video.youtube/?action=play_video&videoid=L3lcSzcSrmU"}                              
+                              "channelUrl": "plugin://plugin.video.youtube/?action=play_video&videoid=CNfJ3VzzC20"}                              
                  }
 
 BASE_WSITE_URL = base64.b64decode('aHR0cDovL3d3dy5kZXNpcnVsZXoubmV0')
