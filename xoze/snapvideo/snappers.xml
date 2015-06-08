@@ -133,6 +133,16 @@
 		enabled="true" desc="vidto.me video hosting website">
 		<video-id regex="vidto.me/(.+?).html" />
 	</snapper>
+    
+	<snapper module="xoze.snapvideo.LetWatch" function="retrieveVideoInfo"
+		enabled="true" desc="letwatch.to video hosting website">
+		<video-id regex="http://letwatch.us/embed-(.+?)-595x430.html" />
+	</snapper>
+
+	<snapper module="xoze.snapvideo.VideoSky" function="retrieveVideoInfo"
+		enabled="true" desc="videosky.to video hosting website">
+		<video-id regex="videosky.to/embed.php\?id=(.+?)&amp;" />
+	</snapper>     
 
 	<snapper module="xoze.snapvideo.VideoTanker" function="retrieveVideoInfo"
 		enabled="true" desc="videotanker.co video hosting website">
