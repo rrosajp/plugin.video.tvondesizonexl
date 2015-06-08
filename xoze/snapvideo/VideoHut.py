@@ -6,7 +6,7 @@ Created on Jan 16, 2015
 from xoze.snapvideo import VideoHost, Video, STREAM_QUAL_SD
 import re
 from xoze.utils import http
-import urllib
+import urllib, urllib2
 
 VIDEO_HOST_NAME = 'VideoHut'
 
@@ -15,36 +15,24 @@ def getVideoHost():
     video_host.set_icon('http://thumbs.videohut.to/logo/5.jpg')
     video_host.set_name(VIDEO_HOST_NAME)
     return video_host
-
     
 def retrieveVideoInfo(video_id):
-    
-    video_info = Video()
-    video_info.set_video_host(getVideoHost())
-    video_info.set_id(video_id)
+    video = Video()
+    video.set_video_host(getVideoHost())
+    video.set_id(video_id)
     try:
-        http.HttpClient().enable_cookies()
-        video_info_link = 'http://www.videohut.to/embed.php?id=' + str(video_id)
-        html = http.HttpClient().get_html_content(url=video_info_link)
-        if re.search(r'Video hosting is expensive. We need you to prove you\'re human.', html):
-            html = http.HttpClient().get_html_content(url=video_info_link)
-
-        domainStr = re.compile('flashvars.domain="(.+?)"').findall(html)[0]
-        fileStr = re.compile('flashvars.file="(.+?)"').findall(html)[0]
-        filekey = re.compile('flashvars.filekey="(.+?)"').findall(html)
-        filekeyStr = None
-        if len(filekey) == 0:
-            filekeyStr = re.compile('flashvars.filekey=(.+?);').findall(html)[0]
-            filekeyStr = re.compile('var ' + filekeyStr + '="(.+?)"').findall(html)[0]
-        else:
-            filekeyStr = filekey[0]
-        video_info_link = domainStr + '/api/player.api.php?user=undefined&pass=undefined&codes=1&file=' + fileStr + '&key=' + filekeyStr
-        html = http.HttpClient().get_html_content(url=video_info_link)
-        video_link = re.compile(r'url=(.+?)&').findall(html)[0]
-        http.HttpClient().disable_cookies()
-        
-        video_info.set_stopped(False)
-        video_info.add_stream_link(STREAM_QUAL_SD, urllib.unquote(video_link))
-    except: 
-        video_info.set_stopped(True)
-    return video_info
+        video_link = 'http://www.videohut.to/embed.php?id=' + str(video_id)
+        mobileagent = urllib.quote_plus('AppleCoreMedia/1.0.0.10B146 (iPhone; U; CPU OS 6_1_2 like Mac OS X; en_us)')
+        req = urllib2.Request(video_link)
+        req.add_header('User-Agent', mobileagent)
+        response = urllib2.urlopen(req)
+        html=response.read()
+        response.close()
+        video_link = re.compile('src=\"(.+?)\?cloudy_stream=true').findall(html)[0]
+        video.set_stopped(False)
+        video.set_thumb_image('')
+        video.set_name("Videohut Video")
+        video.add_stream_link(STREAM_QUAL_SD, video_link)
+    except:
+        video.set_stopped(True)
+    return video
