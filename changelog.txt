@@ -1,5 +1,23 @@
+[B]Version 2.6.9[/B]
+- Removed CloudEC, VideoSky, Videohut as cannot resolve the URL
+
+[B]Version 2.6.8[/B]
+- Fixed LetWatch and CloudEC streams
+
+[B]Version 2.6.7[/B]
+- Added Videosky and fixed Videohut links
+
+[B]Version 2.6.6[/B]
+- Added LetWatch streams
+
+[B]Version 2.6.5[/B]
+- Added ZeeQ and Sonic TV
+
+[B]Version 2.6.4[/B]
+- Added &TV
+
 [B]Version 2.6.3[/B]
-- fixed aajtak
+- Fixed aajtak
 
 [B]Version 2.6.2[/B]
 - Added Aajtak
