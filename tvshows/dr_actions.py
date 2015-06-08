@@ -21,7 +21,7 @@ along with XOZE.  If not, see <http://www.gnu.org/licenses/>.
 
 from xoze.context import AddonContext, SnapVideo
 from xoze.snapvideo import Dailymotion, Playwire, YouTube, Tune_pk, VideoWeed, \
-    Nowvideo, Novamov, CloudEC, VideoHut, VideoTanker
+    Nowvideo, Novamov, CloudEC, VideoHut, VideoTanker, LetWatch, VideoSky
 from xoze.utils import file, http, jsonfile
 from xoze.utils.cache import CacheManager
 from xoze.utils.http import HttpClient
@@ -45,9 +45,6 @@ DIRECT_CHANNELS = {"Awards & Concerts":{"iconimage":"Awards.jpg",
 LIVE_CHANNELS = {"9XM":{"iconimage":"http://www.lyngsat-logo.com/logo/tv/num/9x_music.png",
                         "channelType": "IND",
                         "channelUrl": "http://edge.purplestream.com/live/9xm/amlst:9xmus/playlist.m3u8"},
-                 "MTunes":{"iconimage":"http://www.lyngsat-logo.com/logo/tv/mm/m_tunes_hd.png",
-                           "channelType": "IND",
-                           "channelUrl": "http://mthls-i.akamaihd.net/hls/live/219508/mthls/playlist.m3u8"},
                  "9X Jalwa":{"iconimage":"http://www.lyngsat-logo.com/logo/tv/num/9x_jalwa.png",
                              "channelType": "IND",
                              "channelUrl": "http://edge.purplestream.com/live/9xjal/amlst:9xjl/playlist.m3u8"},
@@ -151,6 +148,11 @@ def refresh_cache(req_attrib, modelMap):
                    "channelType": "IND",
                    "running_tvshows_url": "/forumdisplay.php?f=254",
                    "finished_tvshows_url": "/forumdisplay.php?f=454"},
+                  "&TV":
+                  {"iconimage":"http://akamai.vidz.zeecdn.com/zeedigital/AndTV/domain-data/logo/andtv-logo-pink-1421822560.png",
+                   "channelType": "IND",
+                   "running_tvshows_url": "/forumdisplay.php?f=3138",
+                   "finished_tvshows_url": None},                   
                   "MTV":
                   {"iconimage":"http://www.lyngsat-logo.com/logo/tv/mm/mtv_india.jpg",
                    "channelType": "IND",
@@ -246,21 +248,32 @@ def refresh_cache(req_attrib, modelMap):
                    "channelType": "IND",
                    "running_tvshows_url": "/forumdisplay.php?f=772",
                    "finished_tvshows_url": "/forumdisplay.php?f=803"},
-                   "Epic TV":
+                  "Epic TV":
                   {"iconimage":"http://www.lyngsat-logo.com/logo/tv/ee/epic_in.png",
                    "channelType": "IND",
                    "running_tvshows_url": "/forumdisplay.php?f=2929",
                    "finished_tvshows_url": None},
-                    "Zindagi TV":
+                  "Zindagi TV":
                   {"iconimage":"http://www.lyngsat-logo.com/logo/tv/zz/zee_zindagi_in.png",
                    "channelType": "IND",
                    "running_tvshows_url": "/forumdisplay.php?f=2679",
                    "finished_tvshows_url": None},
-                    "Zing TV":
+                  "Zing TV":
                   {"iconimage":"http://www.lyngsat-logo.com/logo/tv/zz/zee_zing_asia.png",
                    "channelType": "IND",
                    "running_tvshows_url": "/forumdisplay.php?f=2624",
-                   "finished_tvshows_url": None}
+                   "finished_tvshows_url": None},
+                  "Zee Q":
+                  {"iconimage":"http://www.lyngsat-logo.com/logo/tv/zz/zee_q_in.png",
+                   "channelType": "IND",
+                   "running_tvshows_url": "/forumdisplay.php?f=2555",
+                   "finished_tvshows_url": "/forumdisplay.php?f=2689"},
+                  "Sonic":
+                  {"iconimage":"http://www.lyngsat-logo.com/logo/tv/ss/sonic_nickelodeon.png",
+                   "channelType": "IND",
+                   "running_tvshows_url": "/forumdisplay.php?f=1533",
+                   "finished_tvshows_url": "/forumdisplay.php?f=2234"}
+                   
                 }
             }
     current_index = 0
@@ -909,7 +922,7 @@ def __prepareVideoLink__(video_link):
         new_video_url = __parseDesiHomeUrl__(video_url)
     if new_video_url is None:        
         
-        video_id = re.compile('(id|url|v|si)=(.+?)/').findall(video_url + '/')[0][1]                
+        video_id = re.compile('(id|url|v|si|sim)=(.+?)/').findall(video_url + '/')[0][1]                
         
         if re.search('dm(\d*).php', video_url, flags=re.I) or ((re.search('([a-z]*).tv/', video_url, flags=re.I) or re.search('([a-z]*).net/', video_url, flags=re.I) or re.search('([a-z]*).com/', video_url, flags=re.I) or re.search('([a-z]*).me/', video_url, flags=re.I)) and not video_id.isdigit() and re.search('dailymotion', video_source, flags=re.I)):
             new_video_url = 'http://www.dailymotion.com/video/' + video_id + '_'                        
@@ -921,10 +934,8 @@ def __prepareVideoLink__(video_link):
             new_video_url = video_url
         elif re.search('(put|pl).php', video_url, flags=re.I):
             new_video_url = 'http://www.putlocker.com/file/' + video_id
-        elif re.search('cloud.php', video_url, flags=re.I):
-            new_video_url = 'http://www.cloudy.ec/embed.php?id=' + video_id
-        elif re.search('videohut.php', video_url, flags=re.I) or ((re.search('([a-z]*).tv/', video_url, flags=re.I) or re.search('([a-z]*).net/', video_url, flags=re.I) or re.search('([a-z]*).com/', video_url, flags=re.I) or re.search('([a-z]*).me/', video_url, flags=re.I)) and not video_id.isdigit() and re.search('video hut', video_source, flags=re.I)):
-            new_video_url = 'http://www.videohut.to/embed.php?id=' + video_id                        
+        elif re.search('letwatch.php', video_url, flags=re.I) or ((re.search('([a-z]*).tv/', video_url, flags=re.I) or re.search('([a-z]*).net/', video_url, flags=re.I) or re.search('([a-z]*).com/', video_url, flags=re.I) or re.search('([a-z]*).me/', video_url, flags=re.I)) and not video_id.isdigit() and (re.search('letwatch', video_source, flags=re.I) or re.search('let watch', video_source, flags=re.I))):
+            new_video_url = 'http://letwatch.us/embed-' + str(video_id) + '-595x430.html'
         elif re.search('(weed.php|vw.php)', video_url, flags=re.I):
             new_video_url = 'http://www.videoweed.es/file/' + video_id
         elif re.search('(sockshare.com|sock.com)', video_url, flags=re.I):
@@ -947,7 +958,7 @@ def __prepareVideoLink__(video_link):
             new_video_url = 'http://vshare.io/d/' + video_id + '&'
         elif re.search('vidto.php', video_url, flags=re.I):
             new_video_url = 'http://vidto.me/' + video_id + '.html'
-        elif re.search('videotanker.php', video_url, flags=re.I) or ((re.search('([a-z]*).tv/', video_url, flags=re.I) or re.search('([a-z]*).net/', video_url, flags=re.I) or re.search('([a-z]*).com/', video_url, flags=re.I) or re.search('([a-z]*).me/', video_url, flags=re.I)) and video_id.isdigit() and re.search('video tanker', video_source, flags=re.I)):
+        elif re.search('videotanker.php', video_url, flags=re.I) or ((re.search('([a-z]*).tv/', video_url, flags=re.I) or re.search('([a-z]*).net/', video_url, flags=re.I) or re.search('([a-z]*).com/', video_url, flags=re.I) or re.search('([a-z]*).me/', video_url, flags=re.I)) and video_id.isdigit() and (re.search('video tanker', video_source, flags=re.I) or re.search('videotanker', video_source, flags=re.I))):
             new_video_url = 'http://videotanker.co/player/embed_player.php?vid=' + video_id + '&'
 
     
