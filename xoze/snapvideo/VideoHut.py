@@ -35,4 +35,8 @@ def retrieveVideoInfo(video_id):
         video.add_stream_link(STREAM_QUAL_SD, video_link)
     except:
         video.set_stopped(True)
+<<<<<<< HEAD
     return video
+=======
+    return video
+>>>>>>> origin/master

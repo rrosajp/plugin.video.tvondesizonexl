@@ -149,7 +149,11 @@ def refresh_cache(req_attrib, modelMap):
                    "running_tvshows_url": "/forumdisplay.php?f=254",
                    "finished_tvshows_url": "/forumdisplay.php?f=454"},
                   "&TV":
+<<<<<<< HEAD
                   {"iconimage":"http://www.lyngsat-logo.com/logo/tv/aa/and_tv_in.png",
+=======
+                  {"iconimage":"http://akamai.vidz.zeecdn.com/zeedigital/AndTV/domain-data/logo/andtv-logo-pink-1421822560.png",
+>>>>>>> origin/master
                    "channelType": "IND",
                    "running_tvshows_url": "/forumdisplay.php?f=3138",
                    "finished_tvshows_url": None},                   

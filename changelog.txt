@@ -1,9 +1,12 @@
 [B]Version 2.7.1[/B]
 - Fixed icon issue
 
+<<<<<<< HEAD
 [B]Version 2.7.0[/B]
 - Added DesiTVBox
 
+=======
+>>>>>>> origin/master
 [B]Version 2.6.9[/B]
 - Removed CloudEC, VideoSky, Videohut as cannot resolve the URL
 
