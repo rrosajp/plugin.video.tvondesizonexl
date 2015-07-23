@@ -20,6 +20,7 @@ along with XOZE.  If not, see <http://www.gnu.org/licenses/>.
 '''
 from xoze.context import AddonContext, SnapVideo
 import logging
+import xbmcgui  # @UnresolvedImport
 
 def start_addon(req_attrib, modelMap):
     logging.getLogger().debug('Hello ***********************')
@@ -31,19 +32,34 @@ def check_wish(req_attrib, modelMap):
     logging.getLogger().debug('Wish settings = %s' % AddonContext().get_addon().getSetting('wishDisplayed'))
     displayedCounter = AddonContext().get_addon().getSetting('wishDisplayed')
     if displayedCounter == '' or displayedCounter == 'hide':
-        return 'redirect:determineSource'
+        return 'redirect:displaySourceList'
     
 def display_wish(req_attrib, modelMap):
     logging.getLogger().debug('Wish needed ***********************')
     displayedCounter = int(AddonContext().get_addon().getSetting('wishDisplayed'))
     modelMap['displayedCounter'] = displayedCounter
     
+def load_source_list(req_attrib, modelMap):
+    logging.getLogger().debug('TV Source List ***********************')
+    tv_sources_items = []
+    item = xbmcgui.ListItem(label='DesiRulez', iconImage='desirulez.png', thumbnailImage='desirulez.png')
+    item.setProperty('source-id', '0')
+    item.setProperty('source-name', 'DesiRulez')
+    tv_sources_items.append(item)
+    item = xbmcgui.ListItem(label='DesiTVBox', iconImage='desitvbox.gif', thumbnailImage='desitvbox.gif')
+    item.setProperty('source-id', '1')
+    item.setProperty('source-name', 'DesiTVBox')
+    tv_sources_items.append(item)
+    modelMap['tv_sources_items'] = tv_sources_items
+    
 def determine_source(req_attrib, modelMap):
+    if req_attrib is not None and req_attrib.has_key('source-id'):
+        AddonContext().get_addon().setSetting('tvShowsSource', req_attrib['source-id'])
     sourceChosen = int(AddonContext().get_addon().getSetting('tvShowsSource'))
     if sourceChosen == 0:
         return 'redirect:dr-checkCache'
     elif sourceChosen == 1:
-        return 'redirect:dtf-checkCache'
+        return 'redirect:dtb-checkCache'
     
 def end_addon(req_attrib, modelMap):
     logging.getLogger().debug('BYE bye ***********************')

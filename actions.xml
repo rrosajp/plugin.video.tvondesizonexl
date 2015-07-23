@@ -18,6 +18,10 @@
 		<move module="tvshows.actions" function="display_wish" view-id="wishView"/>
 	</action>
 	
+	<action id="displaySourceList">
+		<move module="tvshows.actions" function="load_source_list" view-id="tvSourceView"  />
+	</action>
+	
 	<action id="determineSource">
 		<move module="tvshows.actions" function="determine_source" />
 	</action>
@@ -27,6 +31,22 @@
 		<move module="tvshows.actions" function="end_addon" />
 	</action>
 	
+	<view id="tvSourceView" function="show_tv_source_view" module="tvshows.views">
+		<event function="handle_tv_source_selected" module="tvshows.views" action-id="determineSource" control-id="1202" intent="ACTION_MOUSE_LEFT_CLICK" />
+		<event function="handle_tv_source_selected" module="tvshows.views" action-id="determineSource" control-id="1202" intent="ACTION_SELECT_ITEM" />
+		<event function="handle_tv_source_selected" module="tvshows.views" action-id="determineSource" control-id="1202" intent="ACTION_ENTER" />
+		<event function="handle_tv_source_selected" module="tvshows.views" action-id="determineSource" control-id="1202" intent="ACTION_TOUCH_TAP" />
+		
+		<event action-id="end" control-id="10" intent="ACTION_MOUSE_LEFT_CLICK" />
+		<event action-id="end" control-id="10" intent="ACTION_SELECT_ITEM" />
+		<event action-id="end" control-id="10" intent="ACTION_ENTER" />
+		<event action-id="end" control-id="10" intent="ACTION_TOUCH_TAP" />
+		
+		<event action-id="end" control-id="" intent="ACTION_PREVIOUS_MENU" />
+		<event action-id="end" control-id="" intent="ACTION_NAV_BACK" />
+		<event action-id="end" control-id="" intent="ACTION_PARENT_DIR" />
+		<event action-id="end" control-id="" intent="ACTION_TOUCH_TAP_TEN" />
+	</view>
 
 	<view id="startView" function="show_start_view" module="tvshows.views">
 		<event action-id="end" control-id="" intent="ACTION_PREVIOUS_MENU" />
@@ -41,10 +61,10 @@
 		<event action-id="end" control-id="" intent="ACTION_NAV_BACK" />
 		<event action-id="end" control-id="" intent="ACTION_PARENT_DIR" />
 		<event action-id="end" control-id="" intent="ACTION_TOUCH_TAP_TEN" />
-		<event function="handle_wish_closed" module="tvshows.views" action-id="determineSource" control-id="701" intent="ACTION_MOUSE_LEFT_CLICK" />
-		<event function="handle_wish_closed" module="tvshows.views" action-id="determineSource" control-id="701" intent="ACTION_SELECT_ITEM" />
-		<event function="handle_wish_closed" module="tvshows.views" action-id="determineSource" control-id="701" intent="ACTION_ENTER" />
-		<event function="handle_wish_closed" module="tvshows.views" action-id="determineSource" control-id="701" intent="ACTION_TOUCH_TAP" />
+		<event function="handle_wish_closed" module="tvshows.views" action-id="displaySourceList" control-id="701" intent="ACTION_MOUSE_LEFT_CLICK" />
+		<event function="handle_wish_closed" module="tvshows.views" action-id="displaySourceList" control-id="701" intent="ACTION_SELECT_ITEM" />
+		<event function="handle_wish_closed" module="tvshows.views" action-id="displaySourceList" control-id="701" intent="ACTION_ENTER" />
+		<event function="handle_wish_closed" module="tvshows.views" action-id="displaySourceList" control-id="701" intent="ACTION_TOUCH_TAP" />
 	</view>
 
 </actions>

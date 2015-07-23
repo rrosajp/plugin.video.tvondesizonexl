@@ -54,6 +54,7 @@ def handle_init(window, control_id):
     window.getControl(900).setVisible(False)
     window.getControl(1000).setVisible(False)
     window.getControl(1100).setVisible(True)
+    window.getControl(1200).setVisible(False)
     window.setFocusId(1100)
     displayBackControl = AddonContext().get_addon().getSetting('displayBackControl')
     if displayBackControl is not None and displayBackControl == 'true':
@@ -61,3 +62,29 @@ def handle_init(window, control_id):
     else:
         window.getControl(10).setVisible(False)
     
+def show_tv_source_view(modelMap, window):
+    window.getControl(100).setVisible(False)
+    window.getControl(200).setVisible(False)
+    window.getControl(300).setVisible(False)
+    window.getControl(400).setVisible(False)
+    window.getControl(500).setVisible(False)
+    window.getControl(600).setVisible(False)
+    window.getControl(800).setVisible(False)
+    window.getControl(1000).setVisible(False)
+    window.getControl(1100).setVisible(False)
+    window.getControl(1202).reset()
+    window.getControl(1200).setVisible(True)
+    window.getControl(1202).addItems(modelMap['tv_sources_items'])
+    window.setFocusId(1202)
+    
+def handle_tv_source_selected(window, control_id):
+    logging.getLogger().debug('handle tv source selection... ')
+    list_control = window.getControl(control_id)
+    item = list_control.getSelectedItem()
+    
+    req_attrib_map = {}
+    if item is not None:
+        logging.getLogger().debug('handle tv source selected : %s ' % item.getProperty('source-name'))
+        req_attrib_map['source-id'] = item.getProperty('source-id')
+        
+    return req_attrib_map

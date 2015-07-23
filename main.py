@@ -27,7 +27,7 @@ try:
         
     else:
         from xoze.context import AddonContext
-        addon_context = AddonContext(addon_id='plugin.video.tvondesizonexl', conf={'contextFiles':['actions.xml', 'dr_actions.xml', 'dtf_actions.xml'], 'webServiceEnabled':True, 'webServicePath':'/TVonDESIZONE', 'webServicePort':11421})
+        addon_context = AddonContext(addon_id='plugin.video.tvondesizonexl', conf={'contextFiles':['actions.xml', 'dr_actions.xml', 'dtb_actions.xml'], 'webServiceEnabled':True, 'webServicePath':'/TVonDESIZONE', 'webServicePort':11421})
         addon_context.get_current_addon().get_action_controller().do_action('start')
         addon_context.do_clean()
         del addon_context

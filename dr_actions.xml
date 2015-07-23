@@ -122,15 +122,15 @@
 		<event action-id="dr-displayRemoveFavorite" function="handle_favorite_tv_show_selected_for_remove" module="tvshows.dr_views" control-id="105" intent="ACTION_CONTEXT_MENU" />
 		<event action-id="dr-displayRemoveFavorite" function="handle_favorite_tv_show_selected_for_remove" module="tvshows.dr_views" control-id="105" intent="ACTION_TOUCH_LONGPRESS" />
 		
-		<event action-id="end" control-id="10" intent="ACTION_MOUSE_LEFT_CLICK" />
-		<event action-id="end" control-id="10" intent="ACTION_SELECT_ITEM" />
-		<event action-id="end" control-id="10" intent="ACTION_ENTER" />
-		<event action-id="end" control-id="10" intent="ACTION_TOUCH_TAP" />
+		<event action-id="displaySourceList" control-id="10" intent="ACTION_MOUSE_LEFT_CLICK" />
+		<event action-id="displaySourceList" control-id="10" intent="ACTION_SELECT_ITEM" />
+		<event action-id="displaySourceList" control-id="10" intent="ACTION_ENTER" />
+		<event action-id="displaySourceList" control-id="10" intent="ACTION_TOUCH_TAP" />
 		
-		<event action-id="end" control-id="" intent="ACTION_PREVIOUS_MENU" />
-		<event action-id="end" control-id="" intent="ACTION_NAV_BACK" />
-		<event action-id="end" control-id="" intent="ACTION_PARENT_DIR" />
-		<event action-id="end" control-id="" intent="ACTION_TOUCH_TAP_TEN" />
+		<event action-id="displaySourceList" control-id="" intent="ACTION_PREVIOUS_MENU" />
+		<event action-id="displaySourceList" control-id="" intent="ACTION_NAV_BACK" />
+		<event action-id="displaySourceList" control-id="" intent="ACTION_PARENT_DIR" />
+		<event action-id="displaySourceList" control-id="" intent="ACTION_TOUCH_TAP_TEN" />
 	</view>
 	
 	<view id="dr-channelsViewOthers" function="hide_remove_favorite" module="tvshows.dr_views">
@@ -149,15 +149,15 @@
 		<event action-id="dr-displayRemoveFavorite" function="handle_favorite_tv_show_selected_for_remove" module="tvshows.dr_views" control-id="105" intent="ACTION_CONTEXT_MENU" />
 		<event action-id="dr-displayRemoveFavorite" function="handle_favorite_tv_show_selected_for_remove" module="tvshows.dr_views" control-id="105" intent="ACTION_TOUCH_LONGPRESS" />
 		
-		<event action-id="end" control-id="10" intent="ACTION_MOUSE_LEFT_CLICK" />
-		<event action-id="end" control-id="10" intent="ACTION_SELECT_ITEM" />
-		<event action-id="end" control-id="10" intent="ACTION_ENTER" />
-		<event action-id="end" control-id="10" intent="ACTION_TOUCH_TAP" />
+		<event action-id="displaySourceList" control-id="10" intent="ACTION_MOUSE_LEFT_CLICK" />
+		<event action-id="displaySourceList" control-id="10" intent="ACTION_SELECT_ITEM" />
+		<event action-id="displaySourceList" control-id="10" intent="ACTION_ENTER" />
+		<event action-id="displaySourceList" control-id="10" intent="ACTION_TOUCH_TAP" />
 		
-		<event action-id="end" control-id="" intent="ACTION_PREVIOUS_MENU" />
-		<event action-id="end" control-id="" intent="ACTION_NAV_BACK" />
-		<event action-id="end" control-id="" intent="ACTION_PARENT_DIR" />
-		<event action-id="end" control-id="" intent="ACTION_TOUCH_TAP_TEN" />
+		<event action-id="displaySourceList" control-id="" intent="ACTION_PREVIOUS_MENU" />
+		<event action-id="displaySourceList" control-id="" intent="ACTION_NAV_BACK" />
+		<event action-id="displaySourceList" control-id="" intent="ACTION_PARENT_DIR" />
+		<event action-id="displaySourceList" control-id="" intent="ACTION_TOUCH_TAP_TEN" />
 	</view>
 	
 	
@@ -182,15 +182,15 @@
 		<event action-id="dr-displayRemoveFavorite" function="handle_favorite_tv_show_selected_for_remove" module="tvshows.dr_views" control-id="105" intent="ACTION_CONTEXT_MENU" />
 		<event action-id="dr-displayRemoveFavorite" function="handle_favorite_tv_show_selected_for_remove" module="tvshows.dr_views" control-id="105" intent="ACTION_TOUCH_LONGPRESS" />
 		
-		<event action-id="end" control-id="10" intent="ACTION_MOUSE_LEFT_CLICK" />
-		<event action-id="end" control-id="10" intent="ACTION_SELECT_ITEM" />
-		<event action-id="end" control-id="10" intent="ACTION_ENTER" />
-		<event action-id="end" control-id="10" intent="ACTION_TOUCH_TAP" />
+		<event action-id="displaySourceList" control-id="10" intent="ACTION_MOUSE_LEFT_CLICK" />
+		<event action-id="displaySourceList" control-id="10" intent="ACTION_SELECT_ITEM" />
+		<event action-id="displaySourceList" control-id="10" intent="ACTION_ENTER" />
+		<event action-id="displaySourceList" control-id="10" intent="ACTION_TOUCH_TAP" />
 		
-		<event action-id="end" control-id="" intent="ACTION_PREVIOUS_MENU" />
-		<event action-id="end" control-id="" intent="ACTION_NAV_BACK" />
-		<event action-id="end" control-id="" intent="ACTION_PARENT_DIR" />
-		<event action-id="end" control-id="" intent="ACTION_TOUCH_TAP_TEN" />
+		<event action-id="displaySourceList" control-id="" intent="ACTION_PREVIOUS_MENU" />
+		<event action-id="displaySourceList" control-id="" intent="ACTION_NAV_BACK" />
+		<event action-id="displaySourceList" control-id="" intent="ACTION_PARENT_DIR" />
+		<event action-id="displaySourceList" control-id="" intent="ACTION_TOUCH_TAP_TEN" />
 	</view>
 	
 	<view id="dr-favoriteRemoveButtonView" function="show_remove_favorite" module="tvshows.dr_views">
@@ -546,14 +546,14 @@
 	</view>
 
 	<view id="dr-refreshView" function="show_refresh_view" module="tvshows.dr_views">
-		<event action-id="end" control-id="" intent="ACTION_NAV_BACK" />
-		<event action-id="end" control-id="" intent="ACTION_PARENT_DIR" />
-		<event action-id="end" control-id="" intent="ACTION_TOUCH_TAP_TEN" />
-		<event action-id="end" control-id="" intent="ACTION_PREVIOUS_MENU" />
+		<event action-id="displaySourceList" control-id="" intent="ACTION_NAV_BACK" />
+		<event action-id="displaySourceList" control-id="" intent="ACTION_PARENT_DIR" />
+		<event action-id="displaySourceList" control-id="" intent="ACTION_TOUCH_TAP_TEN" />
+		<event action-id="displaySourceList" control-id="" intent="ACTION_PREVIOUS_MENU" />
 		
-		<event action-id="end" control-id="10" intent="ACTION_MOUSE_LEFT_CLICK" />
-		<event action-id="end" control-id="10" intent="ACTION_SELECT_ITEM" />
-		<event action-id="end" control-id="10" intent="ACTION_ENTER" />
-		<event action-id="end" control-id="10" intent="ACTION_TOUCH_TAP" />
+		<event action-id="displaySourceList" control-id="10" intent="ACTION_MOUSE_LEFT_CLICK" />
+		<event action-id="displaySourceList" control-id="10" intent="ACTION_SELECT_ITEM" />
+		<event action-id="displaySourceList" control-id="10" intent="ACTION_ENTER" />
+		<event action-id="displaySourceList" control-id="10" intent="ACTION_TOUCH_TAP" />
 	</view>
 </actions>

@@ -1,11 +1,12 @@
 '''
-Created on Dec 23, 2011
+Created on Feb 7, 2015
 
-@author: ajju
+@author: jchirag
 '''
 from xoze.snapvideo import VideoHost, Video, STREAM_QUAL_SD
-import re
 from xoze.utils import http
+import logging
+import re
 import urllib
 
 VIDEO_HOST_NAME = 'CloudEC'
@@ -16,35 +17,22 @@ def getVideoHost():
     video_host.set_name(VIDEO_HOST_NAME)
     return video_host
 
-    
-def retrieveVideoInfo(video_id):
-    
-    video_info = Video()
-    video_info.set_video_host(getVideoHost())
-    video_info.set_id(video_id)
+def retrieveVideoInfo(video_id):    
+    video = Video()
+    video.set_video_host(getVideoHost())
+    video.set_id(video_id)
     try:
-        http.HttpClient().enable_cookies()
-        video_info_link = 'http://www.cloudy.ec/embed.php?id=' + str(video_id)
-        html = http.HttpClient().get_html_content(url=video_info_link)
-        if re.search(r'Video hosting is expensive. We need you to prove you\'re human.', html):
-            html = http.HttpClient().get_html_content(url=video_info_link)
-
-        domainStr = re.compile('flashvars.domain="(.+?)"').findall(html)[0]
-        fileStr = re.compile('flashvars.file="(.+?)"').findall(html)[0]
-        filekey = re.compile('flashvars.filekey="(.+?)"').findall(html)
-        filekeyStr = None
-        if len(filekey) == 0:
-            filekeyStr = re.compile('flashvars.filekey=(.+?);').findall(html)[0]
-            filekeyStr = re.compile('var ' + filekeyStr + '="(.+?)"').findall(html)[0]
-        else:
-            filekeyStr = filekey[0]
-        video_info_link = domainStr + '/api/player.api.php?user=undefined&pass=undefined&codes=1&file=' + fileStr + '&key=' + filekeyStr
-        html = http.HttpClient().get_html_content(url=video_info_link)
-        video_link = re.compile(r'url=(.+?)&').findall(html)[0]
-        http.HttpClient().disable_cookies()
-        
-        video_info.set_stopped(False)
-        video_info.add_stream_link(STREAM_QUAL_SD, urllib.unquote(video_link))
-    except: 
-        video_info.set_stopped(True)
-    return video_info
+        video_link = 'http://www.cloudy.ec/embed.php?id=' + str(video_id)
+        html = http.HttpClient().get_html_content(url=video_link)
+        video_key = re.compile('key\: "(.+?)"').findall(html)[0]
+        video.set_stopped(False)
+        video.set_thumb_image('')
+        video.set_name("CloudEC Video")
+        video_url = 'http://www.cloudy.ec/api/player.api.php?user=undefined&codes=1&file=' + video_id + '&pass=undefined&key=' + video_key
+        html = http.HttpClient().get_html_content(url=video_url)
+        video_link = re.compile('url=(.+?)&title=').findall(html)[0]
+        video.add_stream_link(STREAM_QUAL_SD, urllib.unquote_plus(video_link))
+        logging.getLogger().debug(video.get_streams())
+    except:
+        video.set_stopped(True)
+    return video
