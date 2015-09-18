@@ -45,7 +45,7 @@
 				<posx>20</posx>
 				<!-- <posy>305</posy> -->
 				<posy>220</posy>
-				<width>600</width>
+				<width>220</width>
 				<height>13</height>
 				<font>Skia26</font>
 				<label>CHOOSE TV SOURCE</label>

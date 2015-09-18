@@ -65,7 +65,19 @@ LIVE_CHANNELS = {"9XM":{"iconimage":"http://www.lyngsat-logo.com/logo/tv/num/9x_
                               "channelUrl": "http://indiatvnews-lh.akamaihd.net/i/ITV_1@199237/master.m3u8"},
                  "Aajtak": {"iconimage":"http://www.lyngsat-logo.com/logo/tv/aa/aaj_tak.png",
                               "channelType": "IND",
-                              "channelUrl": "plugin://plugin.video.youtube/?action=play_video&videoid=CNfJ3VzzC20"}                              
+                              "channelUrl": "plugin://plugin.video.youtube/?action=play_video&videoid=CNfJ3VzzC20"},
+                 "Tez TV": {"iconimage":"http://www.lyngsat-logo.com/logo/tv/tt/tez_tv_in.png",
+                              "channelType": "IND",
+                              "channelUrl": "plugin://plugin.video.youtube/?action=play_video&videoid=McaDpXr1VCo"},
+                 "Delhit Aajtak: {"iconimage":"http://www.lyngsat-logo.com/logo/tv/aa/aaj_tak_delhi.png",
+                              "channelType": "IND",
+                              "channelUrl": "plugin://plugin.video.youtube/?action=play_video&videoid=sGeMtVvkEwc"},
+                 "Speed Records Punjabi": {"iconimage":"https://yt3.ggpht.com/-8R58jy8vKM0/AAAAAAAAAAI/AAAAAAAAAAA/YL3KTjHFUK4/s100-c-k-no/photo.jpg",
+                              "channelType": "IND",
+                              "channelUrl": "plugin://plugin.video.youtube/?action=play_video&videoid=5xdF97V_cWc"},
+                 "92 News": {"iconimage":"http://www.lyngsat-logo.com/logo/tv/num/92_news_pk.png",
+                              "channelType": "PAK",
+                              "channelUrl": "rtsp://37.48.92.233:1935/live/92news_360p"}
                  }
 
 BASE_WSITE_URL = base64.b64decode('aHR0cDovL3d3dy5kZXNpdHZib3gubWU=')
@@ -768,8 +780,8 @@ def __prepareVideoLink__(video_link):
             new_video_url = video_url
         elif re.search('(put|pl).php', video_url, flags=re.I):
             new_video_url = 'http://www.putlocker.com/file/' + video_id
-        elif re.search('(cl|cloud).php', video_url, flags=re.I):
-            new_video_url = 'http://www.cloudy.ec/embed.php?id=' + video_id
+        elif re.search('(cl|cloud).php', video_url, flags=re.I) or ((re.search('([a-z]*).tv/', video_url, flags=re.I) or re.search('([a-z]*).net/', video_url, flags=re.I) or re.search('([a-z]*).com/', video_url, flags=re.I) or re.search('([a-z]*).me/', video_url, flags=re.I)) and not video_id.isdigit() and re.search('cloudy', video_source, flags=re.I)):
+            new_video_url = 'https://www.cloudy.ec/embed.php?id=' + str(video_id)
         elif re.search('videohut.php', video_url, flags=re.I) or ((re.search('([a-z]*).tv/', video_url, flags=re.I) or re.search('([a-z]*).net/', video_url, flags=re.I) or re.search('([a-z]*).com/', video_url, flags=re.I) or re.search('([a-z]*).me/', video_url, flags=re.I)) and not video_id.isdigit() and re.search('video hut', video_source, flags=re.I)):
             new_video_url = 'http://www.videohut.to/embed.php?id=' + video_id
         elif re.search('letwatch.php', video_url, flags=re.I) or ((re.search('([a-z]*).tv/', video_url, flags=re.I) or re.search('([a-z]*).net/', video_url, flags=re.I) or re.search('([a-z]*).com/', video_url, flags=re.I) or re.search('([a-z]*).me/', video_url, flags=re.I)) and not video_id.isdigit() and re.search('letwatch', video_source, flags=re.I)):

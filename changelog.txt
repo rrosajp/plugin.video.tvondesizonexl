@@ -1,12 +1,15 @@
+[B]Version 2.7.3[/B]
+- Fixed for Kodi 15
+
+[B]Version 2.7.2[/B]
+- Fixed CloudyEC links
+
 [B]Version 2.7.1[/B]
 - Fixed icon issue
 
-<<<<<<< HEAD
 [B]Version 2.7.0[/B]
 - Added DesiTVBox
 
-=======
->>>>>>> origin/master
 [B]Version 2.6.9[/B]
 - Removed CloudEC, VideoSky, Videohut as cannot resolve the URL
 

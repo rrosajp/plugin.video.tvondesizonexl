@@ -43,7 +43,6 @@ def handle_wish_closed(window, control_id):
     window.getControl(700).setVisible(False)
     
 def handle_init(window, control_id):
-    logging.getLogger().debug('handle init')
     window.getControl(100).setVisible(False)
     window.getControl(200).setVisible(False)
     window.getControl(300).setVisible(False)
@@ -62,7 +61,6 @@ def handle_init(window, control_id):
         window.getControl(10).setVisible(True)
     else:
         window.getControl(10).setVisible(False)
-    logging.getLogger().debug('handle init ends')
     
 def show_tv_source_view(modelMap, window):
     window.getControl(100).setVisible(False)
