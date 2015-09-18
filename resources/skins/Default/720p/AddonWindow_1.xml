@@ -54,7 +54,7 @@
 				<posx>20</posx>
 				<!-- <posy>305</posy> -->
 				<posy>220</posy>
-				<width>220</width>
+				<width>600</width>
 				<height>13</height>
 				<font>Skia26</font>
 				<label>CHOOSE TV SOURCE</label>
@@ -634,7 +634,7 @@
 			</control>
 			<control type="label" id="501">
 				<posx>0</posx>
-				<posy>672</posy>
+				<posy>710</posy>
 				<width>1280</width>
 				<height>20</height>
 				<font>SkiaLight18</font>

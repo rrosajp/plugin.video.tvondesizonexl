@@ -43,6 +43,7 @@ class ViewRenderer(object):
         MyFont.FontModifier(addon_path).loadMyFontFile()
         logging.getLogger().debug('Going to load window with name: %s' % window_name)
         self._addon_window = AddonWindow(window_name, addon_path)
+        logging.getLogger().debug('Window initialized...')
         self._addon_window.set_handle_event_func(self.handle_event)
         self._current_view = None
         CacheManager().put('controls_to_be_deleted', [])
